@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extended Periodic Table Dr. Khalid Abdelfattah 2026 الجدول الدوري الممتد للعناصر - د. خالد عبدالفتاح</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: 15px 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            z-index: 10;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        header p {
+            margin: 5px 0 0 0;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        .viewer-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            cursor: grab;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, #1e293b 0%, #0f172a 100%);
+        }
+
+        .viewer-container:active {
+            cursor: grabbing;
+        }
+
+        #periodic-table-img {
+            max-width: 95%;
+            max-height: 85%;
+            transform-origin: center center;
+            transition: transform 0.1s ease-out;
+            user-select: none;
+            pointer-events: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border-radius: 4px;
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            background-color: rgba(30, 41, 59, 0.85);
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            z-index: 10;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .tip-box {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(15, 23, 42, 0.7);
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            pointer-events: none;
+            border-right: 4px solid var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.2rem; }
+            .controls { bottom: 15px; padding: 8px 15px; }
+            .btn { padding: 8px 12px; font-size: 0.8rem; }
+            .tip-box { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>النموذج المطور للجدول الدوري الممتد (Extended Periodic Table Dr. Khalid Abdelfattah 2026)</h1>
+        <p> للدكتور خالد عبدالفتاح محمد عثمان</p>
+    </header>
+
+    <div class="viewer-container" id="container">
+        <div class="tip-box">💡 يمكنك استخدام عجلة الفأرة أو السحب للتكبير والتحريك</div>
+        <!-- استبدل اسم الصورة أدناه باسم ملف صورتك الفعلي إذا كان مختلفاً -->
+        <img src="periodic-table.png" id="periodic-table-img" alt="Extended Periodic Table Dr. Khalid Abdelfattah 2026 جدول الدكتور خالد عبدالفتاح الدوري الممتد">
+    </div>
+
+    <div class="controls">
+        <button class="btn" id="zoom-in">➕ تكبير</button>
+        <button class="btn" id="zoom-out">➖ تصغير</button>
+        <button class="btn" id="reset" style="background-color: #475569;">🔄 إعادة ضبط</button>
+    </div>
+
+    <script>
+        const container = document.getElementById('container');
+        const img = document.getElementById('periodic-table-img');
+        const zoomInBtn = document.getElementById('zoom-in');
+        const zoomOutBtn = document.getElementById('zoom-out');
+        const resetBtn = document.getElementById('reset');
+
+        let scale = 1;
+        let pointX = 0;
+        let pointY = 0;
+        let startX = 0;
+        let startY = 0;
+        let isDragging = false;
+
+        function updateTransform() {
+            img.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+        }
+
+        // أزرار التحكم والضغط
+        zoomInBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            scale = Math.min(scale + 0.3, 5);
+            updateTransform();
+        });
+
+        zoomOutBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            scale = Math.max(scale - 0.3, 0.5);
+            updateTransform();
+        });
+
+        resetBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            scale = 1;
+            pointX = 0;
+            pointY = 0;
+            updateTransform();
+        });
+
+        // التكبير عبر عجلة الماوس (Scroll)
+        container.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const xs = (e.clientX - pointX) / scale;
+            const ys = (e.clientY - pointY) / scale;
+            const delta = e.deltaY;
+
+            if (delta < 0) {
+                scale = Math.min(scale + 0.2, 5);
+            } else {
+                scale = Math.max(scale - 0.2, 0.5);
+            }
+
+            updateTransform();
+        });
+
+        // تحريك الصورة عن طريق السحب (Drag and Pan)
+        container.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            startX = e.clientX - pointX;
+            startY = e.clientY - pointY;
+            isDragging = true;
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        container.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            pointX = e.clientX - startX;
+            pointY = e.clientY - startY;
+            updateTransform();
+        });
+
+        // دعم اللمس للأجهزة الذكية (Touch Events)
+        container.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX - pointX;
+                startY = e.touches[0].clientY - pointY;
+            }
+        });
+
+        container.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        container.addEventListener('touchmove', (e) => {
+            if (!isDragging || e.touches.length !== 1) return;
+            pointX = e.touches[0].clientX - startX;
+            pointY = e.touches[0].clientY - startY;
+            updateTransform();
+        });
+    </script>
+</body>
+</html>
