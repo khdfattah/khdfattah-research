@@ -52,7 +52,7 @@ This document provides a concise comparison between the **Extended Periodic Tabl
 
 ## Conclusion
 
-The **Extended Periodic Table** is scientifically superior, built on quantum mechanical principles, and provides better educational value for deep understanding of chemistry. It's ideal for advanced education and research.
+The **Extended Periodic Table** is scientifically superior, built on quantum mechanical principles, and provides better educational value for deep understanding of chemistry. It's ideal for advanced students and researchers.
 
 The **IUPAC Standard Periodic Table** remains the official international standard, offers greater compactness, and is preferred for general education and official publications.
 
