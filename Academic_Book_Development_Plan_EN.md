@@ -224,7 +224,7 @@ This academic book provides a comprehensive exploration of the Extended Periodic
 ## 📊 Book Specifications
 
 | Aspect | Details |
-|--------|---------|
+|--------|----------|
 | **Total Chapters** | 18 main chapters |
 | **Total Pages** | 400-500 pages (estimated) |
 | **Appendices** | 6 comprehensive appendices |
@@ -268,7 +268,7 @@ This academic book provides a comprehensive exploration of the Extended Periodic
 ## 📅 Development Timeline
 
 | Phase | Duration | Deliverables |
-|-------|----------|--------------|
+|-------|----------|---------------|
 | **Planning** | Month 1-2 | Outline, Research, Structure |
 | **Writing - Part 1** | Month 2-3 | Foundations chapters |
 | **Writing - Part 2** | Month 3-4 | Structure chapters |
